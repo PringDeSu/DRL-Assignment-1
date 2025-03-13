@@ -35,7 +35,7 @@ class ExternalAPI:
         dis = np.zeros(len(ls))
         for i in range(len(ls)):
             dis[i] = abs(ls[i][0] - tg[0]) + abs(ls[i][1] - tg[1])
-        if i == 0:
+        if len(ls) == 0:
             print(self.pre_coor)
             raise ValueError
         big_id = dis.argmin()
@@ -82,10 +82,9 @@ class ExternalAPI:
         state = [self.current_stage, None, (obs[10], obs[11], obs[12], obs[13])]
         if self.current_stage == 0:
             state[1] = self.min_dis_rel_pos(self.ppp, (obs[0], obs[1]))
-            print("0")
         else:
             state[1] = self.min_dis_rel_pos(self.pdp, (obs[0], obs[1]))
-            print("1")
+        print(self.pre_action, '=>', self.current_stage, self.ppp, self.pdp)
         self.pre_obs = obs
         self.pre_action = None
         return tuple(state)

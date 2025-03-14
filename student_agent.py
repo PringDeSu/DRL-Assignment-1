@@ -20,6 +20,7 @@ def get_action(obs):
     state = ext2.get_state(obs)
     # action = q_table.get_action(state, 0)
     action = np.argmax(q_table[state[0]][state[1][0]][state[1][1]][state[2][0]][state[2][1]][state[2][2]][state[2][3]])
+    print(action)
     ext2.add_action(action)
     return action
 

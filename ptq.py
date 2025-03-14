@@ -23,8 +23,8 @@ class PytorchQTable:
         state_here = self.convert_state(state)
         self.optimizer.zero_grad()
         print(state_here)
-        # current_q = self.q_table[state_here[0], state_here[1], state_here[2], state_here[3], state_here[4], state_here[5], state_here[6], action]
-        current_q = self.q_table[*state_here, action]
+        current_q = self.q_table[state_here[0], state_here[1], state_here[2], state_here[3], state_here[4], state_here[5], state_here[6], action]
+        # current_q = self.q_table[*state_here, action]
         loss = self.loss_func(current_q, torch.tensor(target).to(device=device))
         loss.backward()
         self.optimizer.step()

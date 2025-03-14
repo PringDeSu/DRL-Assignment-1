@@ -4,15 +4,22 @@ import pickle
 import random
 import gym
 
+from ptq import PytorchQTable
+from ext import ExternalAPI
+import torch
+
+ext2 = None
+q_table = None
+
 def get_action(obs):
+    global ext2, q_table
+    if ext2 == None:
+        ext2 = ExternalAPI()
+    if q_table == None:
+        with open("q_table.pkl", mode="rb") as file:
+            q_table = pickle.load(file)
+    state = ext2.get_state()
+    action = q_table.get_action(state, 0)
+    ext2.add_action(action)
+    return action
     
-    # TODO: Train your own agent
-    # HINT: If you're using a Q-table, consider designing a custom key based on `obs` to store useful information.
-    # NOTE: Keep in mind that your Q-table may not cover all possible states in the testing environment.
-    #       To prevent crashes, implement a fallback strategy for missing keys. 
-    #       Otherwise, even if your agent performs well in training, it may fail during testing.
-
-
-    return random.choice([0, 1, 2, 3, 4, 5]) # Choose a random action
-    # You can submit this random agent to evaluate the performance of a purely random strategy.
-

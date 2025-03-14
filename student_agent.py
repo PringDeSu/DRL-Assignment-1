@@ -18,8 +18,10 @@ def get_action(obs):
     if q_table == None:
         with open("q_table.pkl", mode="rb") as file:
             q_table = pickle.load(file)
-    state = ext2.get_state()
+    print(q_table)
+    state = ext2.get_state(obs)
     action = q_table.get_action(state, 0)
     ext2.add_action(action)
     return action
     
+# get_action((2, 2, 0, 0, 0, 4, 4, 0, 4, 4, 0, 0, 0, 0, 0, 0))
